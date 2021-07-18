@@ -11,6 +11,10 @@
 #include <qwr/thread_helpers.h>
 #include <qwr/winapi_error_helpers.h>
 
+SMP_MJS_SUPPRESS_WARNINGS_PUSH
+#include <js/Array.h>
+SMP_MJS_SUPPRESS_WARNINGS_POP
+
 // TODO: move to JsEngine form global object
 
 namespace smp
@@ -120,7 +124,7 @@ uint32_t HostTimerDispatcher::createTimer( HWND hWnd, uint32_t delay, bool isRep
     }();
 
     JS::RootedValue jsFuncValue( cx, JS::ObjectValue( *JS_GetFunctionObject( jsFunction ) ) );
-    JS::RootedObject jsArrayObject( cx, JS_NewArrayObject( cx, jsFuncArgs ) );
+    JS::RootedObject jsArrayObject( cx, JS::NewArrayObject( cx, jsFuncArgs ) );
     smp::JsException::ExpectTrue( jsArrayObject );
     JS::RootedValue jsArrayValue( cx, JS::ObjectValue( *jsArrayObject ) );
 
@@ -216,14 +220,14 @@ bool HostTimerTask::InvokeJsImpl( JSContext* cx, JS::HandleObject jsGlobal, JS::
     assert( jsArrayObject );
 
     bool is;
-    if ( !JS_IsArrayObject( cx, jsArrayObject, &is ) )
+    if ( !JS::IsArrayObject( cx, jsArrayObject, &is ) )
     {
         throw smp::JsException();
     }
     assert( is );
 
     uint32_t arraySize;
-    if ( !JS_GetArrayLength( cx, jsArrayObject, &arraySize ) )
+    if ( !JS::GetArrayLength( cx, jsArrayObject, &arraySize ) )
     {
         throw smp::JsException();
     }

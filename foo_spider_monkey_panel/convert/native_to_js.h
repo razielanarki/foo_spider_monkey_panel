@@ -1,5 +1,9 @@
 #pragma once
 
+SMP_MJS_SUPPRESS_WARNINGS_PUSH
+#include <js/Array.h>
+SMP_MJS_SUPPRESS_WARNINGS_POP
+
 namespace mozjs::convert::to_js
 {
 
@@ -98,7 +102,7 @@ void ToValue( JSContext* cx, const std::optional<T>& inValue, JS::MutableHandleV
 template <typename T, typename F>
 void ToArrayValue( JSContext* cx, const T& inContainer, F&& accessorFunc, JS::MutableHandleValue wrappedValue )
 {
-    JS::RootedObject jsArray( cx, JS_NewArrayObject( cx, inContainer.size() ) );
+    JS::RootedObject jsArray( cx, JS::NewArrayObject( cx, inContainer.size() ) );
     smp::JsException::ExpectTrue( jsArray );
 
     JS::RootedValue jsValue( cx );
@@ -117,7 +121,7 @@ void ToArrayValue( JSContext* cx, const T& inContainer, F&& accessorFunc, JS::Mu
 template <typename T>
 void ToArrayValue( JSContext* cx, const T& inContainer, JS::MutableHandleValue wrappedValue )
 {
-    JS::RootedObject jsArray( cx, JS_NewArrayObject( cx, inContainer.size() ) );
+    JS::RootedObject jsArray( cx, JS::NewArrayObject( cx, inContainer.size() ) );
     smp::JsException::ExpectTrue( jsArray );
 
     JS::RootedValue jsValue( cx );

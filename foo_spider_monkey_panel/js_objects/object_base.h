@@ -203,7 +203,7 @@ public:
 
     static void FinalizeJsObject( JSFreeOp* /*fop*/, JSObject* pSelf )
     {
-        auto pNative = static_cast<T*>( JS_GetPrivate( pSelf ) );
+        auto pNative = static_cast<T*>( JS::GetPrivate( pSelf ) );
         if ( pNative )
         {
             auto pJsRealm = static_cast<JsRealmInner*>( JS::GetRealmPrivate( js::GetNonCCWObjectRealm( pSelf ) ) );
@@ -213,7 +213,7 @@ public:
             }
 
             delete pNative;
-            JS_SetPrivate( pSelf, nullptr );
+            JS::SetPrivate( pSelf, nullptr );
         }
     }
 
@@ -273,7 +273,7 @@ private:
         assert( pJsRealm );
         pJsRealm->OnHeapAllocate( premadeNative->nativeObjectSize_ );
 
-        JS_SetPrivate( jsBaseObject, premadeNative.release() );
+        JS::SetPrivate( jsBaseObject, premadeNative.release() );
 
         if constexpr ( T::HasPostCreate )
         {

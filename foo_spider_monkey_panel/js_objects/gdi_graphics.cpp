@@ -158,8 +158,8 @@ uint32_t JsGdiGraphics::CalcTextWidth( const std::wstring& str, JsGdiFont* font,
     return smp::utils::get_text_width( hDc, str, use_exact );
 }
 
-uint32_t JsGdiGraphics::CalcTextWidthWithOpt( size_t optArgCount, const std::wstring& str, 
-                                          JsGdiFont* font, boolean use_exact )
+uint32_t JsGdiGraphics::CalcTextWidthWithOpt( size_t optArgCount, const std::wstring& str,
+                                              JsGdiFont* font, boolean use_exact )
 {
     switch ( optArgCount )
     {
@@ -360,7 +360,7 @@ JSObject* JsGdiGraphics::EstimateLineWrap( const std::wstring& str, JsGdiFont* f
         result = smp::utils::estimate_line_wrap( hDc, str, max_width );
     }
 
-    JS::RootedObject jsArray( pJsCtx_, JS_NewArrayObject( pJsCtx_, result.size() * 2 ) );
+    JS::RootedObject jsArray( pJsCtx_, JS::NewArrayObject( pJsCtx_, result.size() * 2 ) );
     JsException::ExpectTrue( jsArray );
 
     JS::RootedValue jsValue( pJsCtx_ );

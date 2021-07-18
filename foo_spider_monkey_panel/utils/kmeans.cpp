@@ -29,7 +29,7 @@ struct Cluster
     {
         assert( pPoint );
 
-        central_values = 
+        central_values =
             ranges::views::transform( pPoint->pData->values, []( const auto& elem ) { return static_cast<double>( elem ); } )
             | ranges::to_vector;
         points.push_back( pPoint );
@@ -95,7 +95,7 @@ std::vector<ClusterData> run( const std::vector<PointData>& pointsData, uint32_t
 {
     const size_t clusterCount = std::min( std::max( K, static_cast<uint32_t>( 14 ) ), pointsData.size() );
 
-    auto points = 
+    auto points =
         ranges::views::transform( pointsData, []( const auto& data ) { return Point{ &data }; } )
         | ranges::to_vector;
     std::vector<Cluster> clusters;

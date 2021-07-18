@@ -1695,7 +1695,7 @@ void js_panel_window::on_paint( HDC dc, const CRect& updateRc )
         else
         {
             CRect rc{ 0, 0, static_cast<int>( width_ ), static_cast<int>( height_ ) };
-            memDc.FillRect( &rc, ( HBRUSH )( COLOR_WINDOW + 1 ) );
+            memDc.FillRect( &rc, (HBRUSH)( COLOR_WINDOW + 1 ) );
         }
 
         on_paint_user( memDc, updateRc );

@@ -48,11 +48,11 @@ using namespace mozjs;
 
 void JsFinalizeOpLocal( JSFreeOp* /*fop*/, JSObject* obj )
 {
-    auto x = static_cast<JsGlobalObject*>( JS_GetPrivate( obj ) );
+    auto x = static_cast<JsGlobalObject*>( JS::GetPrivate( obj ) );
     if ( x )
     {
         delete x;
-        JS_SetPrivate( obj, nullptr );
+        JS::SetPrivate( obj, nullptr );
 
         auto pJsRealm = static_cast<JsRealmInner*>( JS::GetRealmPrivate( js::GetNonCCWObjectRealm( obj ) ) );
         if ( pJsRealm )
@@ -177,7 +177,7 @@ JSObject* JsGlobalObject::CreateNative( JSContext* cx, JsContainer& parentContai
         pNative->heapManager_ = GlobalHeapManager::Create( cx );
         assert( pNative->heapManager_ );
 
-        JS_SetPrivate( jsObj, pNative.release() );
+        JS::SetPrivate( jsObj, pNative.release() );
 
         JS_FireOnNewGlobalObject( cx, jsObj );
     }
@@ -350,7 +350,7 @@ JsGlobalObject::IncludeOptions JsGlobalObject::ParseIncludeOptions( JS::HandleVa
 
 void JsGlobalObject::Trace( JSTracer* trc, JSObject* obj )
 {
-    auto x = static_cast<JsGlobalObject*>( JS_GetPrivate( obj ) );
+    auto x = static_cast<JsGlobalObject*>( JS::GetPrivate( obj ) );
     if ( x && x->heapManager_ )
     {
         x->heapManager_->Trace( trc );

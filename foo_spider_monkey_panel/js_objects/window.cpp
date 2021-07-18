@@ -188,7 +188,7 @@ size_t JsWindow::GetInternalSize( const smp::panel::js_panel_window& )
 
 void JsWindow::Trace( JSTracer* trc, JSObject* obj )
 {
-    auto x = static_cast<JsWindow*>( JS_GetPrivate( obj ) );
+    auto x = static_cast<JsWindow*>( JS::GetPrivate( obj ) );
     if ( x && x->fbProperties_ )
     {
         x->fbProperties_->Trace( trc );
@@ -278,7 +278,7 @@ JSObject* JsWindow::CreateTooltip( const std::wstring& name, uint32_t pxSize, ui
     if ( !jsTooltip_.initialized() )
     {
         jsTooltip_.init( pJsCtx_, JsFbTooltip::CreateJs( pJsCtx_, parentPanel_.GetHWND() ) );
-        pNativeTooltip_ = static_cast<JsFbTooltip*>( JS_GetPrivate( jsTooltip_ ) );
+        pNativeTooltip_ = static_cast<JsFbTooltip*>( JS::GetPrivate( jsTooltip_ ) );
     }
 
     assert( pNativeTooltip_ );
