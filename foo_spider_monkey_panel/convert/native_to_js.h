@@ -10,10 +10,7 @@ void ToValue( JSContext* cx, const std::reference_wrapper<T>& inValue, JS::Mutab
 }
 
 template <typename T>
-void ToValue( JSContext* cx, JS::Handle<T> inValue, JS::MutableHandleValue wrappedValue )
-{
-    static_assert( 0, "Unsupported type" );
-}
+void ToValue( JSContext* cx, JS::Handle<T> inValue, JS::MutableHandleValue wrappedValue );
 
 template <>
 void ToValue( JSContext* cx, JS::HandleObject inValue, JS::MutableHandleValue wrappedValue );
@@ -22,10 +19,7 @@ template <>
 void ToValue( JSContext* cx, JS::HandleValue inValue, JS::MutableHandleValue wrappedValue );
 
 template <typename T>
-void ToValue( JSContext* cx, const T& inValue, JS::MutableHandleValue wrappedValue )
-{
-    static_assert( 0, "Unsupported type" );
-}
+void ToValue( JSContext* cx, const T& inValue, JS::MutableHandleValue wrappedValue );
 
 template <>
 void ToValue( JSContext* cx, const bool& inValue, JS::MutableHandleValue wrappedValue );
@@ -84,10 +78,7 @@ template <>
 void ToValue( JSContext* cx, const t_playback_queue_item& inValue, JS::MutableHandleValue wrappedValue );
 
 template <typename T>
-void ToValue( JSContext* cx, std::unique_ptr<T> inValue, JS::MutableHandleValue wrappedValue )
-{
-    static_assert( 0, "Unsupported type" );
-}
+void ToValue( JSContext* cx, std::unique_ptr<T> inValue, JS::MutableHandleValue wrappedValue );
 
 template <>
 void ToValue( JSContext* cx, std::unique_ptr<Gdiplus::Bitmap> inValue, JS::MutableHandleValue wrappedValue );

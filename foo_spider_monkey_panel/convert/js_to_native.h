@@ -156,10 +156,7 @@ T ToValue( JSContext* cx, JS::HandleValue jsValue )
 }
 
 template <typename T>
-T ToValue( JSContext* cx, const JS::HandleString& jsString )
-{
-    static_assert( 0, "Unsupported type" );
-}
+T ToValue( JSContext* cx, const JS::HandleString& jsString );
 
 template <>
 qwr::u8string ToValue( JSContext* cx, const JS::HandleString& jsString );
