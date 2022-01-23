@@ -57,6 +57,7 @@ def setup( skip_mozjs,
                 root_dir=root_dir
             )
             call_decorator("Patching submodules")(patch_submodules.patch)()
+        call_decoerator('Copying vcxitems reference projects')(copy_vcxitems.copy_reference_projects())
 
     call_decorator('Version header generation')(
         load_module(scripts_path/'generate_version_header.py').generate_header_custom
